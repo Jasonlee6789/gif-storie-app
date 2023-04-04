@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,6 +34,7 @@ import { GifSearchComponent } from './components/gif-search/gif-search.component
     MatProgressSpinnerModule,
     MatDialogModule,
     NgxMasonryModule,
+    MatButtonToggleModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
