@@ -1,24 +1,24 @@
-<p>gif-collection section</p>
-<div class="gif-collection">
-  <mat-form-field appearance="outline">
-    <mat-label>Search in your collection</mat-label>
-    <input matInput [(ngModel)]="searchQuery" (input)="onSearchChange()" />
-  </mat-form-field>
-  <mat-button-toggle-group
-    #group="matButtonToggleGroup"
-    aria-label="Sort options"
-    (change)="onSortChange(group.value)"
-  >
-    <mat-button-toggle value="dateAdded">Sort by Date Added</mat-button-toggle>
-    <mat-button-toggle value="custom">Custom Sort</mat-button-toggle>
-  </mat-button-toggle-group>
-  <div class="gif-container">
-    <div *ngFor="let gif of filteredGifs" class="gif">
-      <img [src]="gif.url" [alt]="gif.name" />
-      <div class="gif-name">{{ gif.name }}</div>
-      <button mat-icon-button (click)="downloadGif(gif.url, gif.name)">
-        <mat-icon>download</mat-icon>
-      </button>
+<p>gif-collection section</p >
+  <div class="gif-collection">
+    <mat-form-field appearance="outline">
+      <mat-label>Search in your collection</mat-label>
+      <input matInput [(ngModel)]="store.searchQuery" (input)="store.onSearchChange()" />
+    </mat-form-field>
+    <mat-button-toggle-group
+      #group="matButtonToggleGroup"
+      aria-label="Sort options"
+      (change)="store.onSortChange(group.value)"
+    >
+      <mat-button-toggle value="dateAdded">Sort by Date Added</mat-button-toggle>
+      <mat-button-toggle value="custom">Custom Sort</mat-button-toggle>
+    </mat-button-toggle-group>
+    <div class="gif-container">
+      <div *ngFor="let gif of store.filteredGifs" class="gif">
+        <img [src]="gif.url" [alt]="gif.name" />
+        <div class="gif-name">{{ gif.name }}</div>
+        <button mat-icon-button (click)="store.downloadGif(gif.url, gif.name)">
+          <mat-icon>download</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
-</div>
