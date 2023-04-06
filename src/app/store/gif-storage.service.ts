@@ -47,4 +47,5 @@ export class GifStorageService {
   onSortChange(sortOption: string): void {
     // Implement sorting logic based on the selected sort option
   }
+
 }
