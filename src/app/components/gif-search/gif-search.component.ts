@@ -10,6 +10,7 @@ import { GifStorageService } from 'src/app/store/gif-storage.service';
 export class GifSearchComponent implements OnInit {
   searchQuery = '';
   searchResults: { name: string; url: string }[] = [];
+  private debounceSearchChangeTimeout: number | undefined;
 
   constructor(
     private giphyService: GiphyService,
@@ -18,6 +19,15 @@ export class GifSearchComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /**
+   * implement search debounce
+   */
+  debounceSearchChange(): void {
+    clearTimeout(this.debounceSearchChangeTimeout);
+    this.debounceSearchChangeTimeout = setTimeout(() => {
+      this.onSearchChange();
+    }, 800);
+  }
   onSearchChange(): void {
     if (this.searchQuery.trim()) {
       this.giphyService.searchGifs(this.searchQuery).subscribe((response) => {

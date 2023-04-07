@@ -1,24 +1,37 @@
-<p>gif-collection section</p >
-  <div class="gif-collection">
+<p>gif-collection section</p>
+<div class="gif-collection">
+  <div class="gif-container">
     <mat-form-field appearance="outline">
       <mat-label>Search in your collection</mat-label>
-      <input matInput [(ngModel)]="store.searchQuery" (input)="store.onSearchChange()" />
+      <input matInput [(ngModel)]="store.searchQuery" (input)="store.onSearchChange()"/>
     </mat-form-field>
-    <mat-button-toggle-group
-      #group="matButtonToggleGroup"
-      aria-label="Sort options"
-      (change)="store.onSortChange(group.value)"
-    >
-      <mat-button-toggle value="dateAdded">Sort by Date Added</mat-button-toggle>
-      <mat-button-toggle value="custom">Custom Sort</mat-button-toggle>
-    </mat-button-toggle-group>
-    <div class="gif-container">
-      <div *ngFor="let gif of store.filteredGifs" class="gif">
-        <img [src]="gif.url" [alt]="gif.name" />
-        <div class="gif-name">{{ gif.name }}</div>
-        <button mat-icon-button (click)="store.downloadGif(gif.url, gif.name)">
-          <mat-icon>download</mat-icon>
-        </button>
-      </div>
-    </div>
+    <mat-form-field>
+      <mat-label>Sort by</mat-label>
+      <mat-select (selectionChange)="store.onSortChange($event.value)">
+        <mat-option value="dateAsc">Date added (ascending)</mat-option>
+        <mat-option value="dateDesc">Date added (descending)</mat-option>
+        <mat-option value="nameAsc">Name (ascending)</mat-option>
+        <mat-option value="nameDesc">Name (descending)</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
+
+
+  <ktd-grid [cols]="cols"
+            [rowHeight]="rowHeight"
+            [layout]="store.filteredGifs"
+            (layoutUpdated)="onLayoutUpdated($event,store.filteredGifs)">
+    <ktd-grid-item *ngFor="let gif of store.filteredGifs; trackBy:trackById" [id]="gif.id">
+      <mat-card-actions>
+        <button mat-button (click)="store.downloadGif(gif.url, gif.name)">Download</button>
+        <button mat-button (click)="store.removeGif(gif.url)">Remove</button>
+      </mat-card-actions>
+      <mat-card>
+        <img [src]="gif.url" [alt]="gif.name">
+        <p>{{ gif.name }}</p>
+      </mat-card>
+    </ktd-grid-item>
+  </ktd-grid>
+
+
+</div>
