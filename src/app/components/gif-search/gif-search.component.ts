@@ -55,6 +55,8 @@ export class GifSearchComponent implements OnInit {
   }
 
   addGifToCollection(gif: { name: string; url: string }): void {
+    // transfer gif form search results to collection
+    this.searchResults = this.searchResults.filter((result) => result !== gif);
     this.gifStorageService.storeGif(gif.name, gif.url);
   }
 }
