@@ -1,4 +1,3 @@
-import {CdkDragDrop, CdkDragMove, moveItemInArray} from "@angular/cdk/drag-drop";
 import {Injectable} from "@angular/core";
 import {GifItem} from "src/app/serives/interface";
 
@@ -26,11 +25,6 @@ export class GifStorageService {
       name,
       url,
       added: Date.now(),
-      x: this.gifs.length % 4,
-      y: Math.floor(this.gifs.length / 4),
-      w: 1,
-      h: 3,
-      minW: 3, maxW: 6, minH: 3, maxH: 10
     }
     this.gifs.push(gif);
     this.save();
