@@ -1,39 +1,36 @@
-import {Component} from "@angular/core";
-import {KtdGridLayout, ktdTrackById} from "@katoid/angular-grid-layout";
-import {GifItem} from "src/app/serives/interface";
-import {GifStorageService} from "src/app/store/gif-storage.service";
+import { Component } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
+import { GifItem } from 'src/app/serives/interface';
+import { GifStorageService } from 'src/app/store/gif-storage.service';
 
 @Component({
-  selector: "app-gif-collection",
-  templateUrl: "./gif-collection.component.html",
-  styleUrls: ["./gif-collection.component.scss"],
+  selector: 'app-gif-collection',
+  templateUrl: './gif-collection.component.html',
+  styleUrls: ['./gif-collection.component.scss'],
 })
 export class GifCollectionComponent {
-
-
+  collectionItems = [];
+  searchList = [];
   constructor(public store: GifStorageService) {
-    store.loadGifs()
+    store.loadGifs();
   }
 
   cols: number = 4;
   rowHeight: number = 100;
-  trackById = ktdTrackById
+  trackById(index: number, item: GifItem) {
+    return item.id;
+  }
 
-
-  onLayoutUpdated($event: KtdGridLayout, dragSortGifs: GifItem[]) {
-    console.log("onLayoutUpdated", $event, dragSortGifs)
-    $event.forEach((item,index) => {
-      dragSortGifs[index].x = item.x
-      dragSortGifs[index].y = item.y
-      dragSortGifs[index].w = item.w
-      dragSortGifs[index].h = item.h
-      dragSortGifs[index].minW = item.minW
-      dragSortGifs[index].maxW = item.maxW
-      dragSortGifs[index].minH = item.minH
-      dragSortGifs[index].maxH = item.maxH
-      dragSortGifs[index].id = item.id
-    })
+  onLayoutUpdated(_: any, dragSortGifs: GifItem[]) {
     this.store.gifs = dragSortGifs;
     this.store.save();
+  }
+  onDrop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(
+      this.collectionItems,
+      event.previousIndex,
+      event.currentIndex
+    );
   }
 }

@@ -2,9 +2,15 @@
 * {
   box-sizing: border-box;
 }
-.gif-collection,
-.gif-search {
-  padding: 1rem;
+.container {
+  display: flex;
+}
+.search-container {
+  flex: 2;
+}
+
+.collection-container {
+  flex: 1;
 }
 
 .gif-container {
@@ -13,9 +19,9 @@
   gap: 1rem;
 }
 
-.gif {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-}
+// .gif {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   gap: 0.5rem;
+// }

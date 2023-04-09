@@ -1,5 +1,7 @@
 <p>gif-collection section</p>
-<div class="gif-collection">
+<div class="gif-collection"  cdkDropList [cdkDropListData]="collectionItems"
+[cdkDropListConnectedTo]="searchList"
+  (cdkDropListDropped)="onDrop($event)">
   <div class="gif-container">
     <mat-form-field appearance="outline">
       <mat-label>Search in your collection</mat-label>
@@ -14,24 +16,24 @@
         <mat-option value="nameDesc">Name (descending)</mat-option>
       </mat-select>
     </mat-form-field>
-  </div>
-
 
   <ktd-grid [cols]="cols"
-            [rowHeight]="rowHeight"
-            [layout]="store.filteredGifs"
-            (layoutUpdated)="onLayoutUpdated($event,store.filteredGifs)">
-    <ktd-grid-item *ngFor="let gif of store.filteredGifs; trackBy:trackById" [id]="gif.id">
-      <mat-card-actions>
-        <button mat-button (click)="store.downloadGif(gif.url, gif.name)">Download</button>
-        <button mat-button (click)="store.removeGif(gif.url)">Remove</button>
-      </mat-card-actions>
-      <mat-card>
-        <img [src]="gif.url" [alt]="gif.name">
-        <p>{{ gif.name }}</p>
-      </mat-card>
-    </ktd-grid-item>
-  </ktd-grid>
+  [rowHeight]="rowHeight"
+  [layout]="store.filteredGifs"
+  (layoutUpdated)="onLayoutUpdated($event,store.filteredGifs)">
+<ktd-grid-item *ngFor="let gif of store.filteredGifs; trackBy:trackById" [id]="gif.id" cdkDrag >
+<mat-card-actions>
+<button mat-button (click)="store.downloadGif(gif.url, gif.name)"> <mat-icon>cloud_download</mat-icon></button>
+<button mat-button (click)="store.removeGif(gif.url)"> <mat-icon>delete</mat-icon></button>
+</mat-card-actions>
+<mat-card>
+<img [src]="gif.url" [alt]="gif.name">
+<p>{{ gif.name }}</p>
+</mat-card>
+</ktd-grid-item>
+</ktd-grid>
+  </div>
+
 
 
 </div>

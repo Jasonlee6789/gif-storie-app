@@ -5,13 +5,17 @@
     <input matInput [(ngModel)]="searchQuery" (input)="debounceSearchChange()" placeholder="key words"/>
   </mat-form-field>
 
+
+
   <div class="gif-container">
-    <div *ngFor="let gif of searchResults" class="gif">
-      <img [src]="gif.url" [alt]="gif.name"/>
+    <div class="gif" *ngFor="let gif of searchResults" cdkDrag  (cdkDragStarted)="onDragStarted()" (cdkDragEnded)="onDragEnded()">
+      <img [src]="gif.url" [alt]="gif.name" />
       <div class="gif-name">{{ gif.name }}</div>
       <button mat-icon-button (click)="addGifToCollection(gif)">
         <mat-icon>add_circle</mat-icon>
       </button>
     </div>
   </div>
+
+
 </div>

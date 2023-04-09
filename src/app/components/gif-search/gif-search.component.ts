@@ -8,6 +8,12 @@ import { GifStorageService } from 'src/app/store/gif-storage.service';
   styleUrls: ['./gif-search.component.scss'],
 })
 export class GifSearchComponent implements OnInit {
+  onDragEnded() {
+    throw new Error('Method not implemented.');
+  }
+  onDragStarted() {
+    throw new Error('Method not implemented.');
+  }
   searchQuery = '';
   searchResults: { name: string; url: string }[] = [];
   private debounceSearchChangeTimeout: number | undefined;
