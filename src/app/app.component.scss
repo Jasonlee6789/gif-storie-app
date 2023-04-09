@@ -1,3 +1,20 @@
+.container {
+  display: flex;
+}
+.search-container {
+  flex: 2;
+}
+
+.collection-container {
+  flex: 1;
+}
+
+.gif-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
 .example-container {
   width: 400px;
   max-width: 100%;

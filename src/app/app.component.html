@@ -26,15 +26,13 @@
     <h2>gif-collection section</h2>
     <mat-form-field appearance="outline">
       <mat-label>Search in your collection</mat-label>
-      <input matInput [(ngModel)]="store.searchQuery" (input)="store.onSearchChange()"/>
+      <input matInput [(ngModel)]="store.searchQuery" />
     </mat-form-field>
     <mat-form-field>
       <mat-label>Sort by</mat-label>
       <mat-select (selectionChange)="store.onSortChange($event.value)">
         <mat-option value="dateAsc">Date added (ascending)</mat-option>
         <mat-option value="dateDesc">Date added (descending)</mat-option>
-        <mat-option value="nameAsc">Name (ascending)</mat-option>
-        <mat-option value="nameDesc">Name (descending)</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -43,19 +41,21 @@
       [cdkDropListData]="store.filteredGifs"
       class="example-list"
       (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let gif of store.filteredGifs" cdkDrag>
-        <mat-card-actions>
-          <button mat-button (click)="store.downloadGif(gif.url, gif.name)">
-            <mat-icon>cloud_download</mat-icon>
-          </button>
-          <button mat-button (click)="store.removeGif(gif.url)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </mat-card-actions>
-        <mat-card>
-          <img [src]="gif.url" [alt]="gif.name">
-          <p>{{ gif.name }}</p>
-        </mat-card>
+      <div class="example-box" *ngFor="let gif of store.filteredGifs" cdkDrag >
+        <div *ngIf="showFilter(gif)">
+          <mat-card-actions>
+            <button mat-button (click)="store.downloadGif(gif.url, gif.name)">
+              <mat-icon>cloud_download</mat-icon>
+            </button>
+            <button mat-button (click)="store.removeGif(gif.url)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-card-actions>
+          <mat-card>
+            <img [src]="gif.url" [alt]="gif.name">
+            <p>{{ gif.name }}</p>
+          </mat-card>
+        </div>
 
       </div>
     </div>
