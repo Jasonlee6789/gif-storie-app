@@ -1,15 +1,15 @@
-<div cdkDropListGroup>
-  <div class="example-container">
+<div cdkDropListGroup class="container">
+  <div class="gif-container search-container">
     <h2>gif-search section</h2>
     <mat-form-field appearance="outline">
-      <mat-label>Search gif keywods</mat-label>
+      <mat-label>Search gif keywords</mat-label>
       <input matInput [(ngModel)]="searchQuery" (input)="debounceSearchChange()" placeholder="key words"/>
     </mat-form-field>
 
     <div
+      class="gif-search-container"
       cdkDropList
       [cdkDropListData]="searchResults"
-      class="example-list"
       cdkDropListSortingDisabled
       (cdkDropListDropped)="drop($event)">
       <div class="example-box" *ngFor="let gif of searchResults" cdkDrag>
@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <div class="example-container">
+  <div class="gif-container">
     <h2>gif-collection section</h2>
     <mat-form-field appearance="outline">
       <mat-label>Search in your collection</mat-label>
@@ -31,8 +31,8 @@
     <mat-form-field>
       <mat-label>Sort by</mat-label>
       <mat-select (selectionChange)="store.onSortChange($event.value)">
-        <mat-option value="dateAsc">Date added (ascending)</mat-option>
-        <mat-option value="dateDesc">Date added (descending)</mat-option>
+        <mat-option value="dateAsc">Date added  <mat-icon>arrow_drop_up</mat-icon></mat-option>
+        <mat-option value="dateDesc">Date added   <mat-icon>arrow_drop_down</mat-icon></mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -45,7 +45,7 @@
         <div *ngIf="showFilter(gif)">
           <mat-card-actions>
             <button mat-button (click)="store.downloadGif(gif.url, gif.name)">
-              <mat-icon>cloud_download</mat-icon>
+              <mat-icon>download</mat-icon>
             </button>
             <button mat-button (click)="store.removeGif(gif.url)">
               <mat-icon>delete</mat-icon>

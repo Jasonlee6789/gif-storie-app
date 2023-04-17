@@ -2,27 +2,26 @@ import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
-} from "@angular/cdk/drag-drop";
-import {Component} from "@angular/core";
-import {GiphyService} from "src/app/serives/giphy.service";
-import {GifItem} from "src/app/serives/interface";
-import {GifStorageService} from "src/app/store/gif-storage.service";
+} from '@angular/cdk/drag-drop';
+import { Component } from '@angular/core';
+import { GiphyService } from 'src/app/serives/giphy.service';
+import { GifItem } from 'src/app/serives/interface';
+import { GifStorageService } from 'src/app/store/gif-storage.service';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  searchQuery = "";
+  searchQuery = '';
   searchResults: { name: string; url: string }[] = [];
   private debounceSearchChangeTimeout: number | undefined;
 
   constructor(
     public giphyService: GiphyService,
     public store: GifStorageService
-  ) {
-  }
+  ) {}
 
   debounceSearchChange(): void {
     clearTimeout(this.debounceSearchChangeTimeout);
@@ -65,18 +64,20 @@ export class AppComponent {
 
   drop(event: CdkDragDrop<any>) {
     let searchList = event.previousContainer;
-    searchList.data[event.previousIndex].added = searchList.data[event.currentIndex].added = Date.now();
+    searchList.data[event.previousIndex].added = searchList.data[
+      event.currentIndex
+    ].added = Date.now();
 
     if (searchList === event.container) {
       // resorting in the same list
-      console.log("move")
+      console.log('move');
       moveItemInArray(
         event.container.data,
         event.previousIndex,
         event.currentIndex
       );
     } else {
-      console.log("transfer")
+      console.log('transfer');
       // dropping in a different list
       transferArrayItem(
         searchList.data,
@@ -86,10 +87,10 @@ export class AppComponent {
       );
     }
     this.store.save();
-    console.log("sortOption", this.store.filteredGifs)
+    console.log('sortOption', this.store.filteredGifs);
   }
 
   showFilter(gif: GifItem): boolean {
-    return gif.name.includes(this.store.searchQuery.trim())
+    return gif.name.includes(this.store.searchQuery.trim());
   }
 }

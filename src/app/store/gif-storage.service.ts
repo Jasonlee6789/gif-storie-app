@@ -26,7 +26,7 @@ export class GifStorageService {
       url,
       added: Date.now(),
     };
-    this.filteredGifs.push(gif);
+    this.filteredGifs.unshift(gif);
     this.save();
   }
 
@@ -34,6 +34,8 @@ export class GifStorageService {
   searchQuery = '';
 
   downloadGif(url: string, name: string): void {
+    console.log('url', url);
+    console.log('name', name);
     const link = document.createElement('a');
     link.href = url;
     link.download = `${name}.gif`;
